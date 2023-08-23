@@ -7,7 +7,7 @@ const Unit = (props) => {
         return (
         <div>
             <h2>{props.code} {title}</h2>
-          {props.offering.map(o=><li>{o}</li>)}
+          {props.offering.map((o, index)=><li key={index}>{o}</li>)}
             
         </div>
     )
