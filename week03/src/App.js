@@ -1,10 +1,20 @@
 import Unit from './Unit' 
 import './App.css';
-import {useState}from 'react';
+import {useState, useEffect}from 'react';
 import UnitForm from './UnitForm';
+import axios from 'axios'
 
 function App() {
-  const[units,setUnits]=useState([{code:"comp3120",title:"Advanced Web Development" ,offering:["s1"]}])
+  const[units,setUnits]=useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/units")
+    .then((response) => {
+      console.log("response: ", response)
+      setUnits(response.data)
+    })
+  },[])
+
   return (
     <div className="App">
       <header className="App-header">
@@ -13,7 +23,7 @@ function App() {
       <div>
         <UnitForm units={units} setUnits={setUnits} />
       </div>
-      {units.map(unit=> 
+      {units.length > 0 && units.map(unit=> 
         (<Unit key={unit.code} code={unit.code} title={unit.title} offering={unit.offering}/>)
       )
       }
