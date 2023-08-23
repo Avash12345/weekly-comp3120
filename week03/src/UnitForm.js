@@ -1,4 +1,4 @@
-
+import axios from 'axios';
 
 import {useState} from 'react'
 
@@ -12,7 +12,12 @@ const UnitForm = (props) => {
             title: title,
             offering: ['S1'],
         }
-        props.setUnits([...props.units, newUnit]);
+        axios.post("http://localhost:3001/units", newUnit)
+        .then(response => {
+            console.log("POST response", response)
+            props.setUnits([...props.units, response.data])
+        })
+       
     }
 
         return (
